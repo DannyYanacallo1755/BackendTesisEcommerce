@@ -11,8 +11,7 @@ const app = express();
 
 const dbUri = 'mongodb+srv://danny:danny_123@cluster0.8yp9gqt.mongodb.net/probando?retryWrites=true&w=majority';
 
-// Añade esta línea para configurar `strictQuery`
-mongoose.set('strictQuery', true);  // o true, dependiendo de tu preferencia
+mongoose.set('strictQuery', true); // Configuración de strictQuery
 
 mongoose.connect(dbUri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Conectado a MongoDB Atlas"))
@@ -23,7 +22,12 @@ app.use(cors());
 
 app.use("/api/users", UserRoute);
 app.use("/api/todos", ToDoRoute);
-app.use("/api/foods", FoodRoute); // Cambiado para evitar conflictos
-app.use("/api/products", ProductRoute); // Cambiado para evitar conflictos
+app.use("/api/foods", FoodRoute);
+app.use("/api/products", ProductRoute);
+
+// Añadir esta ruta para el endpoint raíz
+app.get('/', (req, res) => {
+  res.send('Bienvenido a la API de E-commerce');
+});
 
 module.exports = app;
