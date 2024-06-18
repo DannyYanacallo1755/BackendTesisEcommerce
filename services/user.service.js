@@ -2,14 +2,14 @@ const UserModel = require('../models/user.model');
 const jwt = require('jsonwebtoken');
 
 class UserService {
-  static async registerUser(nombre, email, password) {
-    try {
-      const createUser = new UserModel({ nombre, email, password });
-      return await createUser.save();
-    } catch (err) {
-      throw err;
+    static async registerUser(nombre, email, password) {
+      try {
+        const createUser = new UserModel({ nombre, email, password });
+        return await createUser.save();
+      } catch (err) {
+        throw err;
+      }
     }
-  }
 
   static async getUserByEmail(email) {
     try {
@@ -29,15 +29,6 @@ class UserService {
 
   static async generateAccessToken(tokenData, JWTSecret_Key, JWT_EXPIRE) {
     return jwt.sign(tokenData, JWTSecret_Key, { expiresIn: JWT_EXPIRE });
-  }
-
-  // Añadir este método para obtener todos los usuarios
-  static async getAllUsers() {
-    try {
-      return await UserModel.find();
-    } catch (err) {
-      throw err;
-    }
   }
 }
 
